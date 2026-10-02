@@ -1,0 +1,19 @@
+# Render Blueprint：在 Render 控制台 New → Blueprint，选这个仓库即可。
+# 部署后在 Environment 里填 FMP_API_KEY（不要写进仓库）。
+services:
+  - type: web
+    name: vela-ta
+    runtime: node
+    plan: free
+    buildCommand: echo "frontend is prebuilt in public/app.js"
+    startCommand: node server.mjs
+    healthCheckPath: /api/health
+    envVars:
+      - key: FMP_API_KEY
+        sync: false
+      - key: SOURCE_URL
+        sync: false
+      - key: FMP_MAX_PER_MIN
+        value: "250"
+      - key: RATE_LIMIT_PER_MIN
+        value: "240"
